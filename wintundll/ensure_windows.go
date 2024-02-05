@@ -25,7 +25,7 @@ func Ensure(opts ...EnsureOption) error {
 		return errors.New("executable is not running as administrator")
 	}
 
-	if _, err = syscall.LoadDLL(config.dllPathInToEnsure); err != nil {
+	if _, err = syscall.LoadDLL(config.dllPathInToEnsure); err == nil {
 		return nil
 	}
 
@@ -39,8 +39,7 @@ func Ensure(opts ...EnsureOption) error {
 		return fmt.Errorf("failed to get wintun.dll from remote: %v", err)
 	}
 
-	_, err = syscall.LoadDLL(config.dllPathInToEnsure)
-	if err != nil {
+	if _, err = syscall.LoadDLL(config.dllPathInToEnsure); err != nil {
 		return fmt.Errorf("still failed to load wintun.dll after fresh download: %v", err)
 	}
 
