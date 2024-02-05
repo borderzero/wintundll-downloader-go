@@ -24,9 +24,11 @@ func main() {
 	err := wintundll.Ensure(
 		wintundll.WithDownloadURL("https://www.wintun.net/builds/wintun-0.14.1.zip"),
 		wintundll.WithDownloadTimeout(time.Second*10),
+		wintundll.WithDllPathInUnzippedDir("wintun/bin/x86/wintun.dll"),
+		wintundll.WithDllPathToEnsure(`C:\Windows\System32\wintun.dll`),
 	)
 	if err != nil {
-		log.Fatal("failed to ensure the presence of the wintun.ddl file")
+		log.Fatal("failed to ensure the presence of the wintun.dll file")
 	}
 }
 ```
